@@ -2,10 +2,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>未接单</title>
+		<title>商品列表</title>
+    	<link rel="stylesheet" href="../assets/css/bs3/bui-min.css" />
     	<link rel="stylesheet" href="../assets/css/bs3/dpl-min.css" />
-		<link rel="stylesheet" href="../assets/css/dpl-min.css" />
-    	<link rel="stylesheet" href="../assets/css/bui-min.css" />
     	<link rel="stylesheet" href="../assets/css/page-min.css" />
 	</head>
 	<body>
@@ -27,12 +26,9 @@
 	          			</div>
 					</div>	
 					<div class="row">
-						<div class="control-group span9">
+						<div class="control-group span12">
 							<label class="control-label">上架时间：</label>
 							<div class="controls">
-								<!--<input type="text" class="calendar" name="startDate"/>
-								<span>-</span>
-								<input type="text" class="calendar" name="endDate"/>-->
 								 <input type="text" class=" calendar" name="startDate"><span> - </span><input name="endDate" type="text" class=" calendar">
 							</div>
 						</div>
@@ -58,15 +54,15 @@
 	    			{title:'商品编号',dataIndex:"id",width:150,renderer:function(v){
 	    					return Search.createLink({
 	    						id : 'detail' + v,
-              					title : '学生信息',
+              					title : '商品详情',
               					text : v,
-              					href : 'detail/example.html'
+              					href : 'detail/product-detail.html'
 	    					});
 	    			}},
 	    			{title:"商品名称",dataIndex:"pName",width:120},
-	    			{title:"商品描述",dataIndex:"pDescribe",width:150},
+	    			{title:"商品描述",dataIndex:"pDescribe",width:200},
 	    			{title:"商品价格",dataIndex:"pPrice",width:80},
-	    			{title:"商品数量",dataIndex:"pName",width:60},
+	    			{title:"商品数量",dataIndex:"pName",width:80},
 	    			{title:"商品规格",dataIndex:"pStandard",width:100},
 	    			{title:"操作",dataIndex:"",width:100,renderer:function(){
 	    				
