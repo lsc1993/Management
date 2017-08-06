@@ -1,0 +1,22 @@
+.product-detail-ul {
+	width: 100%;
+	list-style: none;
+}
+
+.product-detail-ul li {
+	display: inline-block;
+}
+
+.product-detail-ul li img {
+	width: 100px;
+	height: 100px;
+}
+
+.product-detail-ul li img:hover {
+	cursor: pointer;
+}
+
+.product-img-detail img {
+	width: 33%;
+	height: auto;
+}

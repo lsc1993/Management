@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>管理</title>
+		<link rel="stylesheet" href="assets/css/bs3/bui-min.css" />
+		<link rel="stylesheet" href="assets/css/bs3/dpl-min.css" />
+		<link rel="stylesheet" href="assets/css/main-min.css" />
+	</head>
+	<body>
+		<header>
+			<div class="header">
+				<div class="dl-log">
+					欢迎您，
+					<span class="dl-log-user">**.**@alibaba-inc.com</span>
+					<a href="###" title="退出系统" class="dl-log-quit">[退出]</a>
+				</div>
+			</div>
+		</header>
+		<div class="content">
+			<div class="dl-main-nav">
+				<ul id="J_Nav" class="nav-list ks-clear">
+					<li class="nav-item dl-selected"><div class="nav-item-inner nav-home">首页</div></li>
+        			<!--<li class="nav-item"><div class="nav-item-inner nav-order">表单页</div></li>
+        			<li class="nav-item"><div class="nav-item-inner nav-inventory">搜索页</div></li>
+        			<li class="nav-item"><div class="nav-item-inner nav-supplier">详情页</div></li>
+        			<li class="nav-item"><div class="nav-item-inner nav-marketing">图表</div></li>  -->
+				</ul>
+			</div>
+			<ul id="J_NavContent" class="dl-tab-conten">
+
+    		</ul>
+		</div>
+		<script type="text/javascript" src="assets/js/jquery-3.2.1.min.js" ></script>
+		<script type="text/javascript" src="assets/js/bui-min.js" ></script>
+		<script type="text/javascript" src="assets/js/config-min.js" ></script>
+		<script>
+			BUI.use('common/main',function(){
+				var config = [
+					{
+						id:'index',
+						homePage:"",
+						menu:[
+							{
+								text:"产品管理",
+								items:[
+									{
+										id:'add-product',text:"商品上架",href:"product/product-add.html",closeable:false
+									},
+									{
+										id:'edit-product',text:"商品编辑",href:"product/product-edit.html"
+									},
+									{
+										id:'delete-product',text:"商品下架",href:"product/product-delete.html"
+									},
+									{
+										id:'list-product',text:"商品列表",href:"product/product-list.html"
+									},
+								]
+							},
+							{
+								text:"订单管理",
+								items:[
+									{
+										id:'order-not-accept',text:"未接单",href:"order/order-not-accept.html",closeable:false
+									},
+									{
+										id:'order-not-send',text:"未发货",href:"order/order-not-send.html"
+									},
+									{
+										id:'order-send',text:"已发货",href:"order/order-send.html"
+									},
+									{
+										id:'order-complete',text:"已签收",href:"order/order-complete.html"
+									},
+								]
+							},
+							{
+								text:"用户管理",
+								items:[
+									{
+										id:'user-statistic',text:"用户统计",href:"user/user-statistic.html",closeable:false
+									}
+								]
+							},
+						]
+					},
+				];
+				new PageUtil.MainPage({
+					modulesConfig : config
+				});
+			});
+		</script>
+	</body>
+</html>
