@@ -1,5 +1,7 @@
 $(function(){
 	buiRegisterDialog();
+	chooseImages();
+	chooseDescribeImages();
 })
 
 function buiRegisterDialog(){
@@ -29,19 +31,121 @@ function buiRegisterDialog(){
 function submit(){
 	var pId = $("#product-id").val();
 	var pName = $("#product-name").val();
-	//var pType = $("#product-type").options[$("#product-type").selectedIndex].text;
+	var pType = $("#product-type").find("option:selected").text();
 	var pPrice = $("#product-price").val();
 	var pCount = $("#product-count").val();
 	var pDescribe = $("#product-decribe").val();
 	var pStandard = new Array();
 	var length = $("#product-standard-containder").children().length;
 	var items = $("#product-standard-containder").children();
+	
 	for(var i = 0;i < length;++i){
-		pStandard[i] = items.eq(i).text;
-		alert(items.eq(i).text);
+		if(items.eq(i).text() != "新建规格"){
+			pStandard[i] = items.eq(i).text();
+		}
 	}
 	
+	var isSubmit = true;
 	if(!(/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(pPrice))){
-		alert("请输入合适的价格");	
+		isSubmit = false;
+		alert("请输入合适的价格");
 	}
+	
+	if(isSubmit){
+		var formData = new FormData();
+		formData.append("id",pId);
+		formData.append("name",pName);
+		formData.append("type",pType);
+		formData.append("price",pPrice);
+		formData.append("count",pCount);
+		formData.append("describe",pDescribe);
+		formData.append("standard",pStandard);
+		formData.append("images",images);
+		formData.append("desImages",describeImages);
+	}
+	
+}
+
+images = new Array();
+function chooseImages(){
+	$("#product-imgs").change(function(){
+		var imgs = new Array();
+		for(var i = 0;i < this.files.length;++i){
+			imgs.push(this.files[i]);
+		}
+		if(typeof FileReader == "undefined"){
+			alert("不支持图片预览");
+		} else{
+			for (var i = 0;i < imgs.length;++i){
+				if(!/image\/\w+/.test(imgs[i].type)) {
+					alert("请上传图片类型的文件");
+					return false;
+				}
+			}
+			
+			for(var i = 0;i < images.length;++i){
+				for(var j = 0;j < imgs.length;++j){
+					if(imgs[j].name == images[i].name){
+						images.splice(i,1,imgs[j]);
+						imgs.splice(j,1);
+					}
+				}
+			}
+			for(var i = 0;i < imgs.length;++i){
+				images.push(imgs[i]);
+			}
+			$("#product-imgs-list").children().remove();
+			for(var i = 0;i < images.length;++i){
+				var reader = new FileReader();
+				reader.readAsDataURL(images[i]);
+				reader.onload = function(e){
+					var li = document.createElement("li");
+					li.innerHTML = "<img src=" + this.result +" />";
+					$("#product-imgs-list").append(li);
+				}
+			}
+		}
+	});
+}
+
+describeImages = new Array();
+function chooseDescribeImages(){
+	$("#imgs-describe").change(function(){
+		var imgs = new Array();
+		for(var i = 0;i < this.files.length;++i){
+			imgs.push(this.files[i]);
+		}
+		if(typeof FileReader == "undefined"){
+			alert("不支持图片预览");
+		} else{
+			for (var i = 0;i < imgs.length;++i){
+				if(!/image\/\w+/.test(imgs[i].type)) {
+					alert("请上传图片类型的文件");
+					return false;
+				}
+			}
+			
+			for(var i = 0;i < describeImages.length;++i){
+				for(var j = 0;j < imgs.length;++j){
+					if(imgs[j].name == describeImages[i].name){
+						describeImages.splice(i,1,imgs[j]);
+						imgs.splice(j,1);
+					}
+				}
+			}
+			for(var i = 0;i < imgs.length;++i){
+				describeImages.push(imgs[i]);
+			}
+			$("#imgs-describe-list").children().remove();
+			for(var i = 0;i < describeImages.length;++i){
+				var reader = new FileReader();
+				reader.readAsDataURL(describeImages[i]);
+				reader.onload = function(e){
+					var li = document.createElement("li");
+					li.innerHTML = "<img src=" + this.result +" />";
+					$("#imgs-describe-list").append(li);
+				}
+			}
+		}
+	});
 }

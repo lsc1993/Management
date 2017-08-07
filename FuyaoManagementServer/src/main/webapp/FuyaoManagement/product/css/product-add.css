@@ -28,3 +28,45 @@
 .hidden {
 	display: none;
 }
+
+.product-imgs {
+	width: 88px;
+	height: 30px;
+	border: 1px solid #D58512;
+	border-radius: 3px;
+}
+
+.product-imgs span {
+	line-height: 30px;
+	margin-left: 20px;
+}
+
+.product-imgs input[type="file"] {
+	position: absolute;
+	width: 80px;
+	height: 30px;
+	opacity: 0;
+}
+
+.product-imgs-list {
+	width: auto;
+	height: auto;
+	overflow: scroll;
+	margin-left: 120px;
+	margin-bottom: 10px;
+}
+
+.product-imgs-list ul {
+	list-style: none;
+	padding: 0;
+}
+
+.product-imgs-list ul li {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.product-imgs-list img {
+	width: 90px;
+	height: 90px;
+}
