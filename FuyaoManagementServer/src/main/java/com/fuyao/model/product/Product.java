@@ -2,6 +2,7 @@ package com.fuyao.model.product;
 
 public class Product {
 	private String id;
+	private String pId;
 	private String name;
 	private String type;
 	private float price;
@@ -15,6 +16,12 @@ public class Product {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getpId() {
+		return pId;
+	}
+	public void setpId(String pId) {
+		this.pId = pId;
 	}
 	public String getName() {
 		return name;

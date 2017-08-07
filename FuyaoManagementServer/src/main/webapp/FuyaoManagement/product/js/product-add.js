@@ -53,7 +53,7 @@ function submit(){
 	
 	if(isSubmit){
 		var formData = new FormData();
-		formData.append("id",pId);
+		formData.append("pId",pId);
 		formData.append("name",pName);
 		formData.append("type",pType);
 		formData.append("price",pPrice);
@@ -62,6 +62,20 @@ function submit(){
 		formData.append("standard",pStandard);
 		formData.append("images",images);
 		formData.append("desImages",describeImages);
+		
+		$.ajax({
+			type: "post",
+			url: "http://localhost:8080/FuyaoManagementServer/manager/upload",
+			data: formData,
+			contentType: "application/json; charset=utf-8",
+			async: true,
+			success: function(result){
+				
+			},
+			error: function(){
+				
+			}
+		});
 	}
 	
 }
