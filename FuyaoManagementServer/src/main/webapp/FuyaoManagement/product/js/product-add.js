@@ -64,16 +64,18 @@ function submit(){
 		formData.append("desImages",describeImages);
 		
 		$.ajax({
-			type: "post",
-			url: "http://localhost:8080/FuyaoManagementServer/manager/upload",
-			data: formData,
-			contentType: "application/json; charset=utf-8",
+			type: 'POST',
+    		cache: false,
+    		data: formData,
+    		processData: false,
+    		contentType: false,
+			url: "http://localhost:8080/FuyaoManagementServer/product/upload",
 			async: true,
 			success: function(result){
-				
+				alert(result);
 			},
 			error: function(){
-				
+				alert("服务器无响应，请稍后重试");
 			}
 		});
 	}
