@@ -63,6 +63,7 @@
 		<property name="packagesToScan">
 			<list>
 				<value>com.fuyao.model.login</value>
+				<value>com.fuyao.model.product</value>
 			</list>
 		</property>
 	</bean>

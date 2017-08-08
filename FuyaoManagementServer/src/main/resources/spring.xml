@@ -12,5 +12,7 @@
 	<context:component-scan 
 	base-package="
 		com.fuyao.service.login,
-		com.fuyao.dao.login" />
+		com.fuyao.dao.login,
+		com.fuyao.service.product,
+		com.fuyao.dao.product" />
 </beans>
