@@ -39,8 +39,15 @@ public class ProductDao implements IProductDao {
 			result.put("result", "duplicate pid");
 			return result;
 		}
-		session.save(product);
-		result.put("result", "success");
+		try {
+			session.save(product);
+			result.put("result", "success");
+			result.put("message", "产品上传成功");
+		} catch (HibernateException e) {
+			result.put("result", "fault");
+			result.put("message", "产品上传失败");
+			e.printStackTrace();
+		}
 		return result;
 	}
 
@@ -49,13 +56,14 @@ public class ProductDao implements IProductDao {
 		HashMap<String,String> result = new HashMap<String,String>();
 		try {
 			this.getCurrentSession().save(image);
+			result.put("message", "图片上传成功");
 			result.put("result", "success");
-			return result;
 		} catch (HibernateException e){
+			result.put("message", "图片上传失败");
 			result.put("result", "fault");
 			e.printStackTrace();
-			return result;
 		}
+		return result;
 	}
 
 	public HashMap<String, String> addStandard(ProductStandard standard) {
@@ -63,19 +71,24 @@ public class ProductDao implements IProductDao {
 		HashMap<String,String> result = new HashMap<String,String>();
 		try {
 			this.getCurrentSession().save(standard);
+			result.put("message", "产品规格同步数据库成功");
 			result.put("result", "success");
-			return result;
 		} catch (HibernateException e){
+			result.put("message", "产品规格同步数据库失败");
 			result.put("result", "fault");
 			e.printStackTrace();
-			return result;
 		}
+		return result;
 	}
 
-	public long getProductId(Product product) {
+	public long getProductId(String pid) {
 		// TODO Auto-generated method stub
 		String hql = "from Product where pid=:pid";
 		Query<Product> query = this.getCurrentSession().createQuery(hql,Product.class);
-		return query.getResultList().get(0).getId();
+		query.setParameter("pid", pid);
+		if (query.getResultList().size() >= 1) {
+			return query.getResultList().get(0).getId();
+		}
+		return 0;
 	}
 }

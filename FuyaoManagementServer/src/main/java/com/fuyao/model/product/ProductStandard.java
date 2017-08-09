@@ -1,13 +1,10 @@
 package com.fuyao.model.product;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,10 +12,10 @@ import javax.persistence.Table;
 public class ProductStandard {
 	private long id;
 	private String Standard;
-	private Product product;
+	private long pId;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id",nullable=false,length=11)
 	public long getId() {
 		return id;
@@ -35,12 +32,11 @@ public class ProductStandard {
 		Standard = standard;
 	}
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="pid")
-	public Product getProduct() {
-		return product;
+	@Column(name="pid",nullable=false,length=11)
+	public long getpId() {
+		return pId;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setpId(long pId) {
+		this.pId = pId;
 	}
 }

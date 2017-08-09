@@ -38,9 +38,9 @@ public class ProductService implements IProductService {
 		return productDao.addStandard(standard);
 	}
 
-	public long getProductId(Product product) {
+	public long getProductId(String pid) {
 		// TODO Auto-generated method stub
-		return productDao.getProductId(product);
+		return productDao.getProductId(pid);
 	}
 	
 }

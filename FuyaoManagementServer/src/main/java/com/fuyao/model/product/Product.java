@@ -15,24 +15,24 @@ import javax.persistence.Table;
 @Entity
 @Table(name="product")
 public class Product {
-	private int id;
+	private long id;
 	private String pId;
 	private String name;
 	private String type;
 	private float price;
 	private int count;
 	private String describe;
-	private ArrayList<ProductStandard> standards;
-	private ArrayList<ProductImages> images;
+	/*private ArrayList<ProductStandard> standards;
+	private ArrayList<ProductImages> images;*/
 	private Date date;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id",nullable=false,length=11)
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -68,7 +68,7 @@ public class Product {
 		this.price = price;
 	}
 	
-	@Column(name="count",nullable=false)
+	@Column(name="count",nullable=false,length=11)
 	public int getCount() {
 		return count;
 	}
@@ -76,7 +76,7 @@ public class Product {
 		this.count = count;
 	}
 	
-	@Column(name="describe",nullable=false)
+	@Column(name="pdescribe",nullable=false)
 	public String getDescribe() {
 		return describe;
 	}
@@ -100,7 +100,7 @@ public class Product {
 		this.images = images;
 	}*/
 	
-	@Column(name="datatime",nullable=false)
+	@Column(name="loadtime",nullable=false)
 	public Date getDate() {
 		return date;
 	}

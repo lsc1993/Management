@@ -60,8 +60,14 @@ function submit(){
 		formData.append("count",pCount);
 		formData.append("describe",pDescribe);
 		formData.append("standard",pStandard);
-		formData.append("images",images);
-		formData.append("desImages",describeImages);
+		for(var i = 0;i < images.length;++i){
+			formData.append("pImage"+i, images[i]);
+		}
+		formData.append("pImageLen", images.length);
+		for(var i = 0;i < describeImages.length;++i){
+			formData.append("dImage"+i, describeImages[i]);
+		}
+		formData.append("dImageLen", describeImages.length);
 		
 		$.ajax({
 			type: 'POST',
@@ -71,8 +77,8 @@ function submit(){
     		contentType: false,
 			url: "http://localhost:8080/FuyaoManagementServer/product/upload",
 			async: true,
-			success: function(result){
-				alert(result);
+			success: function(data){
+				alert(data.message);
 			},
 			error: function(){
 				alert("服务器无响应，请稍后重试");
