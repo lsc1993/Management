@@ -10,9 +10,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.fuyao.model.product.Product;
 import com.fuyao.model.product.ProductImages;
 import com.fuyao.model.product.ProductStandard;
+import com.fuyao.page.ProductPage;
+import com.fuyao.util.Log;
 
 @Repository("productDao")
 public class ProductDao implements IProductDao {
@@ -34,7 +38,7 @@ public class ProductDao implements IProductDao {
 		Session session = this.getCurrentSession();
 		String hql = "from Product where pid=:pid";
 		Query<Product> query = session.createQuery(hql,Product.class);
-		query.setParameter("pid", product.getpId());
+		query.setParameter("pid", product.getPId());
 		if (query.getResultList().size() >= 1) {
 			result.put("result", "duplicate pid");
 			return result;
@@ -90,5 +94,45 @@ public class ProductDao implements IProductDao {
 			return query.getResultList().get(0).getId();
 		}
 		return 0;
+	}
+
+	public long getProductCount() {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from Product";
+		Query<Long> query = this.getCurrentSession().createQuery(hql,Long.class);
+		long count = query.getSingleResult();
+		Log.log("Count:"+count);
+		return count;
+	}
+
+	public JSON getProductList(HashMap<String,String> data) {
+		// TODO Auto-generated method stub
+		int start;
+		try {
+			start = Integer.parseInt(data.get("start"));
+		} catch (NumberFormatException e) {
+			start = 1;
+			e.printStackTrace();
+		}
+		int limit;
+		try {
+			limit = Integer.parseInt(data.get("limit"));
+		} catch (NumberFormatException e) {
+			limit = 15;
+			e.printStackTrace();
+		}
+		ProductPage page = new ProductPage();
+		Query<Product> query = page.createQuery(this.getCurrentSession(), start, limit);
+		StringBuilder builder = new StringBuilder();
+		builder.append("{");
+		if (query.getResultList().size() > 0) {
+			JSONArray ja = (JSONArray) JSONArray.toJSON(query.getResultList());
+			Log.log(ja.toString());
+			String json = JSON.toJSONString(query.getResultList());
+			builder.append("\"rows\"").append(":").append(json).append(",");
+		}
+		builder.append("\"results\"").append(":").append(this.getProductCount()).append("}");
+		Log.log(builder.toString());
+		return (JSON) JSON.parse(builder.toString());
 	}
 }

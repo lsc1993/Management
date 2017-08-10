@@ -1,15 +1,12 @@
 package com.fuyao.model.product;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,8 +19,6 @@ public class Product {
 	private float price;
 	private int count;
 	private String describe;
-	/*private ArrayList<ProductStandard> standards;
-	private ArrayList<ProductImages> images;*/
 	private Date date;
 	
 	@Id
@@ -37,10 +32,10 @@ public class Product {
 	}
 	
 	@Column(name="pid",nullable=false,length=32)
-	public String getpId() {
+	public String getPId() {
 		return pId;
 	}
-	public void setpId(String pId) {
+	public void setPId(String pId) {
 		this.pId = pId;
 	}
 	
@@ -83,22 +78,6 @@ public class Product {
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-	
-	/*@OneToMany(cascade=CascadeType.ALL,mappedBy="product")
-	public ArrayList<ProductStandard> getStandards() {
-		return standards;
-	}
-	public void setStandards(ArrayList<ProductStandard> standards) {
-		this.standards = standards;
-	}
-	
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="product")
-	public ArrayList<ProductImages> getImages() {
-		return images;
-	}
-	public void setImages(ArrayList<ProductImages> images) {
-		this.images = images;
-	}*/
 	
 	@Column(name="loadtime",nullable=false)
 	public Date getDate() {
