@@ -1,7 +1,7 @@
 .product-standard-list {
 	width: auto;
 	height: auto;
-	display: inline-block;s
+	display: inline-block;
 }
 
 .product-standard-list ul {
@@ -19,6 +19,37 @@
 
 .product-standard-list ul li:hover {
 	cursor: pointer;
+}
+
+.standard-price-list {
+	width: auto;
+	height: auto;
+	display: inline-block;
+}
+
+.standard-price-list ul {
+	list-style: none;
+}
+
+.standard-price-list ul li {
+	width: auto;
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.standard-price-list label {
+	width: auto;
+	padding: 3px;
+	border: 1px solid #D58512;
+	border-radius: 2px;
+}
+
+.standard-price-list input {
+	width: 60px;
+}
+
+.standard-price-input {
+	width: 60px;
 }
 
 .standard-dialog label,input {

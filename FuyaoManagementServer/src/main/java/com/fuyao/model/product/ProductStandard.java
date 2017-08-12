@@ -13,6 +13,7 @@ public class ProductStandard {
 	private long id;
 	private String Standard;
 	private long pId;
+	private float price;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,5 +39,13 @@ public class ProductStandard {
 	}
 	public void setpId(long pId) {
 		this.pId = pId;
+	}
+	
+	@Column(name="price",nullable=false)
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
 	}
 }

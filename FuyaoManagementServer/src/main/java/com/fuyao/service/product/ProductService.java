@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ import com.fuyao.model.product.Product;
 import com.fuyao.model.product.ProductImages;
 import com.fuyao.model.product.ProductStandard;
 import com.fuyao.util.FuyaoUtil;
+import com.fuyao.util.Log;
 
 @Transactional
 @Service("productService")
@@ -108,6 +110,14 @@ public class ProductService {
 			ProductStandard ps = new ProductStandard();
 			ps.setpId(id);
 			ps.setStandard(sd[i]);
+			try {
+				float sPrice = Float.parseFloat(request.getParameter(sd[i]));
+				ps.setPrice(sPrice);
+			} catch (NumberFormatException e) {
+				result.put("message", "规格价格有误！");
+				result.put("result", "fault");
+				throw new HibernateException("price error");
+			}
 			result = productDao.addStandard(ps);
 			if (!"success".equals(result.get("result"))) {
 				return result;
@@ -134,6 +144,58 @@ public class ProductService {
 		
 		OutputStream out = null;
 		InputStream in = null;
+		/*
+		 * 处理产品首页图片
+		 **/
+		try {
+			Part part = request.getPart("sImage");
+			ProductImages image = new ProductImages();
+			String imgName ="sImg" + FuyaoUtil.getImageUUID() + FuyaoUtil.getImageType(part);
+			image.setImage(imgName);
+			image.setpId(id);
+			result = productDao.addPImages(image);
+			if (!"success".equals(result.get("result"))) {
+				return result;
+			}
+			/*
+			 * 存储图片到服务器
+			 **/
+			in = part.getInputStream();
+			out = new FileOutputStream(new File(FuyaoUtil.IMAGE_PATH+imgName));
+			int read = 0;
+			byte[] bytes;
+			if(part.getSize() <= Integer.MAX_VALUE) {
+				bytes = new byte[(int)part.getSize()];
+			} else {
+				bytes = new byte[12400];
+			}
+			while ((read = in.read(bytes)) != -1) {
+				out.write(bytes, 0, read);
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ServletException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			try {
+				if (null != in) {
+					in.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				if (null != out) {
+					out.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		/*
 		 * 处理产品图片
 		 **/
@@ -198,7 +260,7 @@ public class ProductService {
 				ProductImages image = new ProductImages();
 				String imgName ="dImg" + FuyaoUtil.getImageUUID() + FuyaoUtil.getImageType(part);
 				image.setImage(imgName);
-				//image.setpId(id);
+				image.setpId(id);
 				result = productDao.addPImages(image);
 				if (!"success".equals(result.get("result"))) {
 					return result;

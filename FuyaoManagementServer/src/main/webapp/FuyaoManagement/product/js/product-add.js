@@ -2,14 +2,15 @@ $(function(){
 	buiRegisterDialog();
 	chooseImages();
 	chooseDescribeImages();
+	chooseIndexImages();
 })
 
 function buiRegisterDialog(){
 	BUI.use('bui/overlay',function(Overlay){
 		var dialog = new Overlay.Dialog({
 			title:"新增商品规格",
-			width:400,
-			height:150,
+			width:280,
+			height:125,
 			contentId:"dialog-add-standard",
 			success:function(){
 				var standard = $("#standard-text").val().trim();
@@ -17,6 +18,11 @@ function buiRegisterDialog(){
 					var li = document.createElement("li");
 					li.innerHTML = standard;
 					$("#product-standard-containder").prepend(li);
+					
+					var sli = document.createElement("li");
+					var content = "<label>" + standard + "</label> <input class='standard-price-input' type='text' data-rules='{required:true}'/>";
+					sli.innerHTML = content;
+					$("#standard-price-containder").prepend(sli);
 				}
 				this.close();
 			}
@@ -29,6 +35,7 @@ function buiRegisterDialog(){
 }
 
 function submit(){
+	var isSubmit = true;
 	var pId = $("#product-id").val();
 	var pName = $("#product-name").val();
 	var pType = $("#product-type").find("option:selected").text();
@@ -39,20 +46,30 @@ function submit(){
 	var length = $("#product-standard-containder").children().length;
 	var items = $("#product-standard-containder").children();
 	
+	var formData = new FormData();
 	for(var i = 0;i < length;++i){
 		if(items.eq(i).text() != "新建规格"){
 			pStandard[i] = items.eq(i).text();
 		}
 	}
 	
-	var isSubmit = true;
+	var sLength = $("#standard-price-containder").children().length;
+	var sItems = $("#standard-price-containder").children();
+	for(var i = 0;i < sLength;++i){
+		if(!(/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(sItems.eq(i).children().eq(1).val()))){
+			isSubmit = false;
+			alert("请输入合适的价格");
+		} else{
+			formData.append(sItems.eq(i).children().eq(0).text(),sItems.eq(i).children().eq(1).val());
+		}
+	}
+	
 	if(!(/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(pPrice))){
 		isSubmit = false;
 		alert("请输入合适的价格");
 	}
 	
 	if(isSubmit){
-		var formData = new FormData();
 		formData.append("pId",pId);
 		formData.append("name",pName);
 		formData.append("type",pType);
@@ -60,6 +77,7 @@ function submit(){
 		formData.append("count",pCount);
 		formData.append("describe",pDescribe);
 		formData.append("standard",pStandard);
+		formData.append("sImage", $("#product-index-imgs")[0].files[0]);
 		for(var i = 0;i < images.length;++i){
 			formData.append("pImage"+i, images[i]);
 		}
@@ -167,6 +185,34 @@ function chooseDescribeImages(){
 					li.innerHTML = "<img src=" + this.result +" />";
 					$("#imgs-describe-list").append(li);
 				}
+			}
+		}
+	});
+}
+
+function chooseIndexImages(){
+	$("#product-index-imgs").change(function(){
+		if(this.files.length > 1){
+			alert("首页展示图片只需要一张！");
+			return;
+		}
+		
+		var img = this.files[0];
+		if(typeof FileReader == "undefined"){
+			alert("不支持图片预览");
+		} else{
+			if(!/image\/\w+/.test(img.type)) {
+				alert("请上传图片类型的文件");
+				return false;
+			}
+	
+			$("#index-imgs-list").children().remove();
+			var reader = new FileReader();
+			reader.readAsDataURL(img);
+			reader.onload = function(e){
+				var li = document.createElement("li");
+				li.innerHTML = "<img src=" + this.result +" />";
+				$("#index-imgs-list").append(li);
 			}
 		}
 	});
