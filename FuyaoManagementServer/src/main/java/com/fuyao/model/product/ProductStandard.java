@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="standards")
+@Table(name="product_standards")
 public class ProductStandard {
 	private long id;
 	private String Standard;

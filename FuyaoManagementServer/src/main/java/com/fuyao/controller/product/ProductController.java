@@ -30,9 +30,6 @@ public class ProductController {
 	@RequestMapping(value="/upload",method=RequestMethod.POST)
 	private HashMap<String,String> addProduct(HttpServletRequest request) {
 		HashMap<String,String> result = new HashMap<String,String>();
-		/*String sPrice = request.getParameter("50");
-		Log.log("dwewqdqq");
-		Log.log(sPrice);*/
 		result = productService.uploadProduct(request);
 		return result;
 	}

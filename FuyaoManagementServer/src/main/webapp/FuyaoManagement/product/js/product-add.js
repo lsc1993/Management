@@ -1,8 +1,12 @@
 $(function(){
+	domain = "http://localhost:8080";
+	imgPath = domain + ":1993/ImageResource/";
+	requestIP = domain;
 	buiRegisterDialog();
 	chooseImages();
 	chooseDescribeImages();
 	chooseIndexImages();
+	alert($.cookie("manager_token"));
 })
 
 function buiRegisterDialog(){
@@ -35,6 +39,11 @@ function buiRegisterDialog(){
 }
 
 function submit(){
+	var token = $.cookie("manager_token");
+	if(token = "" || token == undefined){
+		alert("用户认证失败");
+		return;
+	}
 	var isSubmit = true;
 	var pId = $("#product-id").val();
 	var pName = $("#product-name").val();
@@ -70,6 +79,7 @@ function submit(){
 	}
 	
 	if(isSubmit){
+		formData.append("managerToken", token);
 		formData.append("pId",pId);
 		formData.append("name",pName);
 		formData.append("type",pType);
@@ -93,7 +103,7 @@ function submit(){
     		data: formData,
     		processData: false,
     		contentType: false,
-			url: "http://localhost:8080/FuyaoManagementServer/product/upload",
+			url: requestIP + "/FuyaoManagementServer/product/upload",
 			async: true,
 			success: function(data){
 				alert(data.message);

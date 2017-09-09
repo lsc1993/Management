@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="images")
+@Table(name="product_images")
 public class ProductImages {
 	private long id;
 	private String image;

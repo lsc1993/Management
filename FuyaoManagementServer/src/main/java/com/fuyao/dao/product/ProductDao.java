@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.fuyao.model.product.Product;
 import com.fuyao.model.product.ProductImages;
 import com.fuyao.model.product.ProductStandard;
-import com.fuyao.page.ProductPage;
+import com.fuyao.page.CommonPage;
 import com.fuyao.util.Log;
 
 @Repository("productDao")
@@ -120,8 +120,9 @@ public class ProductDao implements IProductDao {
 			limit = 15;
 			e.printStackTrace();
 		}
-		ProductPage page = new ProductPage();
-		Query<Product> query = page.createQuery(this.getCurrentSession(), start, limit);
+		CommonPage page = new CommonPage();
+		String hql = "from Product";
+		Query<Product> query = page.createQuery(this.getCurrentSession(), hql, start, limit);
 		StringBuilder builder = new StringBuilder();
 		builder.append("{");
 		if (query.getResultList().size() > 0) {

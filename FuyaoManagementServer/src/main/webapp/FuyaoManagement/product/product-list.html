@@ -9,19 +9,19 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="row" id="searchForm">
+			<form class="row" id="searchForm"><!--此id可以调用日期起选择控件-->
 				<div class="form-horizontal span24">
 					<div class="row">
 						<div class="control-group span8">
 							<label class="control-label">商品编号：</label>
 							<div class="controls">
-								<input type="text" class="control-text" id="order-id" />
+								<input type="text" class="control-text" id="product-id" />
 							</div>
 						</div>
 						<div class="control-group span8">
 		            		<label class="control-label">订单类型：</label>
 		            		<div class="controls">
-		              			<input type="text" class="control-text" name="stuName">
+		              			<input type="text" class="control-text" id="product-type">
 		           			</div>
 	          			</div>
 					</div>	
@@ -29,15 +29,18 @@
 						<div class="control-group span12">
 							<label class="control-label">上架时间：</label>
 							<div class="controls">
-								 <input type="text" class=" calendar" name="startDate"><span> - </span><input name="endDate" type="text" class=" calendar">
+								 <input type="text" class="calendar" name="startDate" id="start-date"><span> - </span><input name="endDate" type="text" class=" calendar" id="end-date">
 							</div>
 						</div>
-						<div class="control-group span3">
-							 <button type="button" id="btnSearch" class="button button-primary">搜索</button>
+						<div class="control-group span12 ">
+							<div class="controls">
+								<button type="button" id="btnSearch" class="button button-primary" onclick="find()">搜索</button>
+							 	<button type="reset" class="button">重置</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 		<div class="search-grid-container">
       		<div id="grid"></div>

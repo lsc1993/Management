@@ -15,6 +15,7 @@ public class ManagerLogin {
 	private String account;
 	private String password;
 	private int authority;
+	private String token;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -50,5 +51,11 @@ public class ManagerLogin {
 		this.authority = authority;
 	}
 	
-	
+	@Column(name="manager_token",nullable=false,length=128)
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

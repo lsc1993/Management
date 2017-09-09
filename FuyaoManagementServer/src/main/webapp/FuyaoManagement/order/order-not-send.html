@@ -45,46 +45,11 @@
 	    <script type="text/javascript" src="../assets/js/jquery-3.2.1.min.js" ></script>
 	    <script type="text/javascript" src="../assets/js/bui-min.js"></script>
 	    <script type="text/javascript" src="../assets/js/config-min.js"></script>
+	    <script type="text/javascript" src="../assets/js/common/search-min.js" ></script>
+	    <script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+	    <script type="text/javascript" src="js/order-not-send.js" ></script>
 	    <script type="text/javascript">
 	   		BUI.use('common/page');
-	    </script>
-	    <script type="text/javascript">
-	    	BUI.use('common/search',function(Search,overlay){
-	    		cloumns = [
-	    			{title:'订单编号',dataIndex:"id",width:150,renderer:function(v){
-	    					return Search.createLink({
-	    						id : 'detail' + v,
-              					title : '学生信息',
-              					text : v,
-              					href : 'detail/example.html'
-	    					});
-	    			}},
-	    			{title:"商品名称",dataIndex:"pName",width:120},
-	    			{title:"商品描述",dataIndex:"pDescribe",width:150},
-	    			{title:"商品价格",dataIndex:"pPrice",width:80},
-	    			{title:"商品数量",dataIndex:"pName",width:60},
-	    			{title:"商品规格",dataIndex:"pStandard",width:100},
-	    			{title:"订单总价",dataIndex:"pTotal",width:100},
-	    			{title:"订单日期",dataIndex:"pDate",width:100},
-	    			{title:"订单状态",dataIndex:"pStaus",width:80},
-	    			{title:"操作",dataIndex:"",width:100,renderer:function(){
-	    				
-	    			}}
-	    		],
-	    		store = Search.createStore('../data/student.json'),
-	    		gridCfg = Search.createGridCfg(cloumns,{
-	    			plugins : [BUI.Grid.Plugins.CheckSelection] // 插件形式引入多选表格
-	    		});
-	    		
-	    		var search = new Search({
-	    			gridCfg:gridCfg,
-	    			store: store
-	    		}),
-	    		grid = search.get('grid');
-	    		grid.on('cellclick',function(ev){
-	    			
-	    		})
-	    	});
 	    </script>
 	</body>
 </html>

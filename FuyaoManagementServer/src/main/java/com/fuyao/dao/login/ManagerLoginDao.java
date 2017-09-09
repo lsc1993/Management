@@ -1,7 +1,5 @@
 package com.fuyao.dao.login;
 
-import java.util.HashMap;
-
 import javax.annotation.Resource;
 
 import org.hibernate.Session;
@@ -25,19 +23,17 @@ public class ManagerLoginDao implements IManagerLoginDao {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public HashMap<String, String> login(ManagerLogin manager) {
+	public ManagerLogin login(ManagerLogin manager) {
 		// TODO Auto-generated method stub
-		HashMap<String,String> result = new HashMap<String,String>();
 		String hql = "from ManagerLogin where account=:account and password=:password";
 		Query<ManagerLogin> query = this.getCurrentSession().createQuery(hql,ManagerLogin.class);
 		query.setParameter("account", manager.getAccount());
 		query.setParameter("password", manager.getPassword());
 		if(query.getResultList().size() == 1) {
-			result.put("result", "success");  
+			return query.getResultList().get(0);
 		} else {
-			result.put("result", "fault");
+			return null;
 		}
-		return result;
 	}
 
 }

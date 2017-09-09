@@ -1,4 +1,7 @@
 $(function(){
+	domain = "http://localhost:8080";
+	imgPath = domain + ":1993/ImageResource/";
+	requestIP = domain;
 	inputFocusChanged();
 });
 
@@ -26,17 +29,16 @@ function login(){
 	}
 	
 	if(isLogin) {
-		$("#login-button").attr("disabled", true);
-		var userMessage = {
-			"account" : phone,
-	        "password" : password
-			};
+		var data = new FormData();
+		data.append("account", phone);
+		data.append("password", password);
 		$.ajax({
 			type : "post",
-            dataType : "json",
-            data : JSON.stringify(userMessage),
-            contentType: "application/json; charset=utf-8",
-			url:"http://localhost:8080/FuyaoManagementServer/manager/login",
+            data : data,
+            processData: false,
+            contentType: false,
+			cache: false,
+			url: requestIP + "/FuyaoManagementServer/manager/login",
 			async:true,
 			success : function(data) {
 				alert(data.result);
@@ -50,12 +52,11 @@ function login(){
 		           $("#login-button").attr("disabled", false);
                 } else if ("success" == data.result) {  
                 	$("#login-button").attr("disabled", false);
-                    var indexUrl = window.location.protocol+"//"+window.location.host+"/FuyaoManagementServer/FuyaoManagement/index.html";
-                    window.location = indexUrl;
+                    window.location.href = "/FuyaoManagementServer/FuyaoManagement/index.html";
                 }
             },
             error : function() {
-                alert("服务器发生故障，请尝试重新登录！");
+                alert("服务器无响应");
             }
 		});
 	}	
