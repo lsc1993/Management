@@ -20,7 +20,7 @@ public class CommonPage extends Page {
 	
 	public <T> Query<T> createQuery(Session session, String hql, int start, int limit) {
 		Query<T> query = createQuery(session, hql);
-		query.setFirstResult(getStartIndex(start,limit));
+		query.setFirstResult(start);
 		query.setMaxResults(limit);
 		return query;
 	}

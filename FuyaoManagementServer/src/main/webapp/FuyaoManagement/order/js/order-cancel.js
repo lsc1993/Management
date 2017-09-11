@@ -14,21 +14,19 @@ $(function(){
 	    {title:"买家地址",dataIndex:"address",width:150},
 	    {title:"下单时间",dataIndex:"date",width:150},
 	    {title:"操作",dataIndex:"",width:100,renderer:function(v){
-	    	var sendBtn = "<button class='button-default'>发货</button>";
-	    	return sendBtn;
+	    	
 	    }}
 	],
 	store = new Store({
-	   	
+	   	url: requestIP + "/FuyaoManagementServer/order/list",
 	   	autoLoad: true,
 	   	proxy: {
-	   		url: requestIP + "/FuyaoManagementServer/order/list",
 	   		method: "POST",
 	   	},
 	    params: {
 	    	start: 0,
 	    	limit: 8,
-	   		status: "WAITSEND"
+	   		status: "CANCEL"
 	   	},
 	    pageSize: 8
 	}),
@@ -45,12 +43,12 @@ $(function(){
         }
     });
     grid.render();
-    grid.on('cellclick', function(ev){
+    /*grid.on('cellclick', function(ev){
     	var sender = $(ev.domTarget);
     	if(sender.hasClass("button-default")){
     		sendOrder(ev.record);
     	}
-    });
+    });*/
 	//创建表单，表单中的日历，不需要单独初始化
     var form = new BUI.Form.HForm({
         srcNode : '#searchForm'
@@ -65,7 +63,7 @@ $(function(){
     });
 })
 
-function sendOrder(item) {
+/*function sendOrder(item) {
 	var data = {"id": item.id, "status": "WAITRECEIVE"};
 	$.ajax({
 		type:"post",
@@ -87,45 +85,4 @@ function sendOrder(item) {
 			alert("服务器处理异常");
 		}
 	});
-}
-
-function find(){
-	var id = $("#order-id").val();
-	var name = $("#receiver").val();
-	var tel = $("#receiver-tel").val();
-	var startDate = $("#start-date").val();
-	var endDate = $("#end-date").val();
-	if(id != ""){
-		findById(id);
-	}else if(name != ""){
-		findByName(name);
-	}else if(tel != ""){
-		findByTel(tel);
-	}else if(startDate != "" && endDate != ""){
-		findByDate(startDate, endDate);
-	}
-}
-
-function findById(id){
-	var data = {"status": "WAITSEND", "orderId": id, "start": 0};
-	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
-	store.load(data);
-}
-
-function findByName(name){
-	var data = {"status": "WAITSEND", "receiver": name, "start": 0};
-	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
-	store.load(data);
-}
-
-function findByTel(tel){
-	var data = {"status": "WAITSEND", "tel": tel, "start": 0};
-	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
-	store.load(data);
-}
-
-function findByDate(startDate, endDate){
-	var data = {"status": "WAITSEND", "startDate": startDate, "endDate": endDate, "start": 0};
-	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
-	store.load(data);
-}
+}*/

@@ -19,7 +19,7 @@ $(function(){
 	   		method: "POST",
 	   	},
 	    start: 0,
-	    pageSize: 10
+	    limit: 10
 	}),
 	grid = new Grid.Grid({
         render:'#grid',

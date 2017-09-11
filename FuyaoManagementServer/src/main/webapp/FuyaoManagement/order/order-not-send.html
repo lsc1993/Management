@@ -19,21 +19,27 @@
 							</div>
 						</div>
 						<div class="control-group span8">
-		            		<label class="control-label">订单类型：</label>
+		            		<label class="control-label">买家姓名：</label>
 		            		<div class="controls">
-		              			<input type="text" class="control-text" name="stuName">
+		              			<input type="text" class="control-text" name="stuName" id="receiver">
+		           			</div>
+	          			</div>
+	          			<div class="control-group span8">
+		            		<label class="control-label">买家电话：</label>
+		            		<div class="controls">
+		              			<input type="text" class="control-text" name="stuName" id="receiver-tel">
 		           			</div>
 	          			</div>
 					</div>	
 					<div class="row">
 						<div class="control-group span12">
-							<label class="control-label">订单时间：</label>
+							<label class="control-label">下单时间：</label>
 							<div class="controls">
-								 <input type="text" class=" calendar" name="startDate"><span> - </span><input name="endDate" type="text" class=" calendar">
+								 <input type="text" class=" calendar" name="startDate" id="start-date"><span> - </span><input name="endDate" type="text" class=" calendar" id="end-date">
 							</div>
 						</div>
 						<div class="control-group span3">
-							 <button type="button" id="btnSearch" class="button button-primary">搜索</button>
+							 <button type="button" id="btnSearch" class="button button-primary" onclick="find()">搜索</button>
 						</div>
 					</div>
 				</div>
@@ -46,7 +52,7 @@
 	    <script type="text/javascript" src="../assets/js/bui-min.js"></script>
 	    <script type="text/javascript" src="../assets/js/config-min.js"></script>
 	    <script type="text/javascript" src="../assets/js/common/search-min.js" ></script>
-	    <script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+	    <script type="text/javascript" src="../assets/js/constants.js" ></script>
 	    <script type="text/javascript" src="js/order-not-send.js" ></script>
 	    <script type="text/javascript">
 	   		BUI.use('common/page');

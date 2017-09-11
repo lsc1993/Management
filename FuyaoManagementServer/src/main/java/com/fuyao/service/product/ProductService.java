@@ -23,7 +23,6 @@ import com.fuyao.model.product.Product;
 import com.fuyao.model.product.ProductImages;
 import com.fuyao.model.product.ProductStandard;
 import com.fuyao.util.FuyaoUtil;
-import com.fuyao.util.Log;
 
 @Transactional
 @Service("productService")

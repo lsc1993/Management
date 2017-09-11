@@ -36,56 +36,36 @@
 		<script type="text/javascript" src="assets/js/config-min.js" ></script>
 		<script>
 			BUI.use('common/main',function(){
-				var config = [
-					{
-						id:'index',
-						homePage:"",
-						menu:[
-							{
-								text:"产品管理",
-								items:[
-									{
-										id:'add-product',text:"商品上架",href:"product/product-add.html",closeable:false
-									},
-									{
-										id:'edit-product',text:"商品编辑",href:"product/product-edit.html"
-									},
-									{
-										id:'delete-product',text:"商品下架",href:"product/product-delete.html"
-									},
-									{
-										id:'list-product',text:"商品列表",href:"product/product-list.html"
-									},
-								]
-							},
-							{
-								text:"订单管理",
-								items:[
-									{
-										id:'order-not-accept',text:"未接单",href:"order/order-not-accept.html",closeable:false
-									},
-									{
-										id:'order-not-send',text:"未发货",href:"order/order-not-send.html"
-									},
-									{
-										id:'order-send',text:"已发货",href:"order/order-send.html"
-									},
-									{
-										id:'order-complete',text:"已签收",href:"order/order-complete.html"
-									},
-								]
-							},
-							{
-								text:"用户管理",
-								items:[
-									{
-										id:'user-statistic',text:"用户统计",href:"user/user-statistic.html",closeable:false
-									}
-								]
-							},
+				var config = [{
+					id:'index',
+					homePage:"",
+					menu:[{
+						text:"产品管理",
+						items:[
+							{id:'add-product',text:"商品上架",href:"product/product-add.html",closeable:false},
+							{id:'edit-product',text:"商品编辑",href:"product/product-edit.html"},
+							{id:'delete-product',text:"商品下架",href:"product/product-delete.html"},
+							{id:'list-product',text:"商品列表",href:"product/product-list.html"},
 						]
 					},
-				];
+					{
+						text:"订单管理",
+						items:[
+							{id:'order-not-accept',text:"待发货",href:"order/order-not-send.html",closeable:false},
+							{id:'order-not-send',text:"已发货",href:"order/order-send.html"},
+							{id:'order-send',text:"已签收",href:"order/order-complete.html"},
+							{id:'order-complete',text:"已取消",href:"order/order-cancel.html"},
+						]
+					},
+					{
+						text:"用户管理",
+						items:[
+							{id:'user-statistic',text:"用户统计",href:"user/user-statistic.html",closeable:false}
+						]
+					},
+					]
+				},
+			];
 				new PageUtil.MainPage({
 					modulesConfig : config
 				});
