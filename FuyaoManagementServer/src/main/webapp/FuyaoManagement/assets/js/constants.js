@@ -1,4 +1,4 @@
 $(function(){
-	domain = "http://localhost:8080";
+	domain = "http://www.hzfuyao.com:8088";
 	requestIP = domain;
 })

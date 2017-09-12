@@ -1,7 +1,4 @@
 $(function(){
-	domain = "http://localhost:8080";
-	imgPath = domain + ":1993/ImageResource/";
-	requestIP = domain;
 	inputFocusChanged();
 	enterListener();
 });
@@ -62,7 +59,7 @@ function login(){
 		           $("#login-button").attr("disabled", false);
                 } else if ("success" == data.result) {  
                 	$("#login-button").attr("disabled", false);
-                    window.location.href = "/FuyaoManagementServer/FuyaoManagement/index.html";
+                    window.location.href = "/FuyaoManagement/index.html";
                 }
             },
             error : function() {

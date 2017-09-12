@@ -36,6 +36,18 @@
 		<script type="text/javascript" src="assets/js/bui-min.js" ></script>
 		<script type="text/javascript" src="assets/js/config-min.js" ></script>
 		<script>
+			var token = $.cookie("manager_token");
+			//alert(token);
+			if(token == undefined || token.length < 32){
+				//alert("22");
+				window.location.href = "/FuyaoManagement/login/login.html";
+			}
+			function quit(){
+				$.cookie("manager_token", null, {path:"/"});
+				window.location.href = "/FuyaoManagement/login/login.html";
+			}
+		</script>
+		<script>
 			BUI.use('common/main',function(){
 				var config = [{
 					id:'index',
@@ -71,13 +83,6 @@
 					modulesConfig : config
 				});
 			});
-		</script>
-		<script>
-			function quit(){
-				$.cookie("manager_token", null, {path:"/"});
-				alert($.cookie("manager_token"));
-				window.location.href = "/FuyaoManagementServer/FuyaoManagement/login/login.html";
-			}
 		</script>
 	</body>
 </html>
