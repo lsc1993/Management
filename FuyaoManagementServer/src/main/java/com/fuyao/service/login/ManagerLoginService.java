@@ -35,6 +35,8 @@ public class ManagerLoginService {
 			Log.log("token:" + manager.getToken());
 			this.generateCookie(manager.getToken(), response);
 			result.put("result", "success");
+		} else {
+			result.put("result", "fault");
 		}
 		return result;
 	}
