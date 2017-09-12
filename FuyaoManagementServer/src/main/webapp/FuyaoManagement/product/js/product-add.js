@@ -6,7 +6,6 @@ $(function(){
 	chooseImages();
 	chooseDescribeImages();
 	chooseIndexImages();
-	alert($.cookie("manager_token"));
 })
 
 function buiRegisterDialog(){

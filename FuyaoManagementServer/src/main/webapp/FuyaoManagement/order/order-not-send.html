@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="row" id="searchForm">
+			<form class="row" id="searchForm">
 				<div class="form-horizontal span24">
 					<div class="row">
 						<div class="control-group span8">
@@ -38,12 +38,13 @@
 								 <input type="text" class=" calendar" name="startDate" id="start-date"><span> - </span><input name="endDate" type="text" class=" calendar" id="end-date">
 							</div>
 						</div>
-						<div class="control-group span3">
+						<div class="control-group span12">
 							 <button type="button" id="btnSearch" class="button button-primary" onclick="find()">搜索</button>
+							 <button type="reset" id="btnReset" class="button" onclick="resetLoad()">重置</button>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 		<div class="search-grid-container">
       		<div id="grid"></div>

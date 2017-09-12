@@ -3,6 +3,7 @@ $(function(){
 	imgPath = domain + ":1993/ImageResource/";
 	requestIP = domain;
 	inputFocusChanged();
+	enterListener();
 });
 
 function inputFocusChanged(){
@@ -14,6 +15,15 @@ function inputFocusChanged(){
 		$("#login-password-tip").removeClass()
 		                         .addClass("tip-message-invisibility");
 	});
+}
+
+function enterListener(){
+	document.onkeydown=keyListener;   
+	function keyListener(e){   
+        if(e.keyCode == 13){   
+        	login();
+        }
+    }
 }
 
 function login(){
@@ -29,6 +39,7 @@ function login(){
 	}
 	
 	if(isLogin) {
+		$("#login-button").attr("disabled", true);
 		var data = new FormData();
 		data.append("account", phone);
 		data.append("password", password);
@@ -41,7 +52,6 @@ function login(){
 			url: requestIP + "/FuyaoManagementServer/manager/login",
 			async:true,
 			success : function(data) {
-				alert(data.result);
                 if ("fault" == data.result) {
                     $("#login-phone-tip").text("用户名或密码错误");
 					$("#login-phone-tip").removeClass()

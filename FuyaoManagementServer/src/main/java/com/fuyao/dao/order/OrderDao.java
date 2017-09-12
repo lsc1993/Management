@@ -28,6 +28,11 @@ public class OrderDao implements IOrderDao {
 		return this.sessionFactory.getCurrentSession();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.fuyao.dao.order.IOrderDao#getOrderCount()
+	 * 获取所有订单数量
+	 */
 	public long getOrderCount() {
 		// TODO Auto-generated method stub
 		String hql = "select count(id) from Order";
@@ -35,6 +40,10 @@ public class OrderDao implements IOrderDao {
 		return query.getSingleResult();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.fuyao.dao.order.IOrderDao#getOrderCountByStatus(com.fuyao.service.order.OrderService.OrderStatus)
+	 */
 	public long getOrderCountByStatus(OrderStatus s) {
 		// TODO Auto-generated method stub
 		String hql = "select count(id) from Order where status=:status";

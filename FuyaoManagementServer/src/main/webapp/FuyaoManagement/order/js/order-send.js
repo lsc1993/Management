@@ -13,6 +13,7 @@ $(function(){
 	    {title:"买家电话",dataIndex:"phone",width:110},
 	    {title:"买家地址",dataIndex:"address",width:150},
 	    {title:"下单时间",dataIndex:"date",width:150},
+	    {title:"状态",dataIndex:"status",width:90},
 	    {title:"操作",dataIndex:"",width:100,renderer:function(v){
 	    	
 	    }}
@@ -43,12 +44,7 @@ $(function(){
         }
     });
     grid.render();
-    /*grid.on('cellclick', function(ev){
-    	var sender = $(ev.domTarget);
-    	if(sender.hasClass("button-default")){
-    		sendOrder(ev.record);
-    	}
-    });*/
+   
 	//创建表单，表单中的日历，不需要单独初始化
     var form = new BUI.Form.HForm({
         srcNode : '#searchForm'
@@ -63,26 +59,49 @@ $(function(){
     });
 })
 
-/*function sendOrder(item) {
-	var data = {"id": item.id, "status": "WAITRECEIVE"};
-	$.ajax({
-		type:"post",
-		dataType: "json",
-		data: JSON.stringify(data),
-		contentType: "application/json; charset=utf-8",
-		url: requestIP + "/FuyaoManagementServer/order/change_status",
-		async:true,
-		success: function(data){
-			var param = {"start": 0};
-			store.load(param);
-			if(data.result == "success"){
-				alert("操作成功");
-			} else if(data.result == "fault"){
-				alert(data.message);
-			}
-		},
-		error: function(){
-			alert("服务器处理异常");
-		}
-	});
-}*/
+function find(){
+	var id = $("#order-id").val();
+	var name = $("#receiver").val();
+	var tel = $("#receiver-tel").val();
+	var startDate = $("#start-date").val();
+	var endDate = $("#end-date").val();
+	if(id != ""){
+		findById(id);
+	}else if(name != ""){
+		findByName(name);
+	}else if(tel != ""){
+		findByTel(tel);
+	}else if(startDate != "" && endDate != ""){
+		findByDate(startDate, endDate);
+	}
+}
+
+function findById(id){
+	var data = {"status": "WAITRECEIVE", "orderId": id, "start": 0};
+	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
+	store.load(data);
+}
+
+function findByName(name){
+	var data = {"status": "WAITRECEIVE", "receiver": name, "start": 0};
+	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
+	store.load(data);
+}
+
+function findByTel(tel){
+	var data = {"status": "WAITRECEIVE", "tel": tel, "start": 0};
+	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
+	store.load(data);
+}
+
+function findByDate(startDate, endDate){
+	var data = {"status": "WAITRECEIVE", "startDate": startDate, "endDate": endDate, "start": 0};
+	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
+	store.load(data);
+}
+
+function resetLoad(){
+	var data = {"status": "WAITRECEIVE","start": 0};
+	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/list");
+	store.load(data);
+}

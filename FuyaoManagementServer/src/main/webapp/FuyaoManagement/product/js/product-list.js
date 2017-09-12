@@ -18,8 +18,11 @@ $(function(){
 	   	proxy: {
 	   		method: "POST",
 	   	},
-	    start: 0,
-	    limit: 10
+	   	params: {
+	    	start: 0,
+	    	limit: 8,
+	   	},
+	    pageSize: 8
 	}),
 	grid = new Grid.Grid({
         render:'#grid',

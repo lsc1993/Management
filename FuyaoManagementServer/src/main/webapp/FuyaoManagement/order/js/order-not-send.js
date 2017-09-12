@@ -13,13 +13,13 @@ $(function(){
 	    {title:"买家电话",dataIndex:"phone",width:110},
 	    {title:"买家地址",dataIndex:"address",width:150},
 	    {title:"下单时间",dataIndex:"date",width:150},
+	    {title:"状态",dataIndex:"status",width:90},
 	    {title:"操作",dataIndex:"",width:100,renderer:function(v){
 	    	var sendBtn = "<button class='button-default'>发货</button>";
 	    	return sendBtn;
 	    }}
 	],
 	store = new Store({
-	   	
 	   	autoLoad: true,
 	   	proxy: {
 	   		url: requestIP + "/FuyaoManagementServer/order/list",
@@ -45,6 +45,9 @@ $(function(){
         }
     });
     grid.render();
+    /*
+     * 处理grid单元格点击事件
+     */
     grid.on('cellclick', function(ev){
     	var sender = $(ev.domTarget);
     	if(sender.hasClass("button-default")){
@@ -127,5 +130,11 @@ function findByTel(tel){
 function findByDate(startDate, endDate){
 	var data = {"status": "WAITSEND", "startDate": startDate, "endDate": endDate, "start": 0};
 	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/find");
+	store.load(data);
+}
+
+function resetLoad(){
+	var data = {"status": "WAITSEND","start": 0};
+	store.get('proxy').set('url',requestIP + "/FuyaoManagementServer/order/list");
 	store.load(data);
 }
