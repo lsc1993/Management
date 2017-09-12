@@ -12,8 +12,8 @@
 			<div class="header">
 				<div class="dl-log">
 					欢迎您，
-					<span class="dl-log-user">**.**@alibaba-inc.com</span>
-					<a href="###" title="退出系统" class="dl-log-quit">[退出]</a>
+					<span class="dl-log-user">hzfuyao.com</span>
+					<a href="###" title="退出系统" class="dl-log-quit" onclick="quit()">[退出]</a>
 				</div>
 			</div>
 		</header>
@@ -32,6 +32,7 @@
     		</ul>
 		</div>
 		<script type="text/javascript" src="assets/js/jquery-3.2.1.min.js" ></script>
+		<script type="text/javascript" src="assets/js/jquery.cookie-1.4.1.min.js" ></script>
 		<script type="text/javascript" src="assets/js/bui-min.js" ></script>
 		<script type="text/javascript" src="assets/js/config-min.js" ></script>
 		<script>
@@ -70,6 +71,13 @@
 					modulesConfig : config
 				});
 			});
+		</script>
+		<script>
+			function quit(){
+				$.cookie("manager_token", null, {path:"/"});
+				alert($.cookie("manager_token"));
+				window.location.href = "/FuyaoManagementServer/FuyaoManagement/login/login.html";
+			}
 		</script>
 	</body>
 </html>

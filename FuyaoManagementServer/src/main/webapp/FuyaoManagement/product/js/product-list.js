@@ -1,4 +1,14 @@
 $(function(){
+	var checkCookie = $.cookie("manager_token");
+	if(checkCookie != undefined && checkCookie.length == 32){
+		initPage();
+	}else{
+        window.location = "/FuyaoManagementServer/FuyaoManagement/login/login.html";
+	}
+})
+
+function initPage(){
+	BUI.use('common/page');
 	Store = BUI.Data.Store,
 	Grid = BUI.Grid,
 	columns = [
@@ -49,7 +59,7 @@ $(function(){
         store.load(obj);
         return false;
     });
-})
+}
 
 function find(){ 
 	var pid = $("#product-id").val();

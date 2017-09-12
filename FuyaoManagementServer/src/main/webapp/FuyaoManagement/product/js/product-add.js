@@ -1,12 +1,18 @@
 $(function(){
-	domain = "http://localhost:8080";
-	imgPath = domain + ":1993/ImageResource/";
-	requestIP = domain;
+	var checkCookie = $.cookie("manager_token");
+	if(checkCookie != undefined && checkCookie.length == 32){
+		initPage();
+	}else{
+        window.location = "/FuyaoManagementServer/FuyaoManagement/login/login.html";
+	}
+})
+
+function initPage(){
 	buiRegisterDialog();
 	chooseImages();
 	chooseDescribeImages();
 	chooseIndexImages();
-})
+}
 
 function buiRegisterDialog(){
 	BUI.use('bui/overlay',function(Overlay){

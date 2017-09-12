@@ -1,2 +1,4 @@
-domain = "http://localhost:8080";
-requestIP = domain;
+$(function(){
+	domain = "http://localhost:8080";
+	requestIP = domain;
+})
