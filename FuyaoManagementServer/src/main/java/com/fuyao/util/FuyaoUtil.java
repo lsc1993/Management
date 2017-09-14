@@ -5,7 +5,7 @@ import java.util.UUID;
 import javax.servlet.http.Part;
 
 public class FuyaoUtil {
-	public static final String IMAGE_PATH = "E:\\nginx-1.12.1\\nginx-1.12.1\\html\\ImageResource\\";
+	public static final String IMAGE_PATH = "/usr/local/ImageResource/";
 	
 	public static String getImageType(Part part) {
 		for (String content : part.getHeader("content-disposition").split(";")) {
@@ -32,8 +32,7 @@ public class FuyaoUtil {
 	}
 	
 	public static String getImageUUID() {
-		String s = UUID.randomUUID().toString().toLowerCase();
-		s.replace("-","");
+		String s = UUID.randomUUID().toString().replace("-","").toLowerCase();
 		return s;
 	}
 }
