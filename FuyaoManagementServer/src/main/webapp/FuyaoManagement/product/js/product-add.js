@@ -1,10 +1,11 @@
 $(function(){
-	var checkCookie = $.cookie("manager_token");
+	/*var checkCookie = $.cookie("manager_token");
 	if(checkCookie != undefined && checkCookie.length == 32){
 		initPage();
 	}else{
         window.location = "/FuyaoManagementServer/FuyaoManagement/login/login.html";
-	}
+	}*/
+	initPage();
 })
 
 function initPage(){
@@ -40,7 +41,6 @@ function buiRegisterDialog(){
 			dialog.show();
 		});
 	});
-	
 }
 
 function submit(){

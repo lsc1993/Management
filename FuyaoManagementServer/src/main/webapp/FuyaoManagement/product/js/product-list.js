@@ -1,10 +1,11 @@
 $(function(){
-	var checkCookie = $.cookie("manager_token");
+	/*var checkCookie = $.cookie("manager_token");
 	if(checkCookie != undefined && checkCookie.length == 32){
 		initPage();
 	}else{
         window.location = "/FuyaoManagementServer/FuyaoManagement/login/login.html";
-	}
+	}*/
+	initPage();
 })
 
 function initPage(){
@@ -18,8 +19,13 @@ function initPage(){
 	    {title:"商品价格",dataIndex:"price",width:80},
 	    {title:"商品数量",dataIndex:"count",width:80},
 	    {title:"商品类型",dataIndex:"type",width:100}, 
+	    {title:"商品状态",dataIndex:"status",width:100},
 	    {title:"上架时间",dataIndex:"date",width:150},
-	    {title:"操作",dataIndex:"",width:100,renderer:function(){	
+	    {title:"操作",dataIndex:"",width:180,renderer:function(){	
+	    	var editText = '<span class="grid-command-span edit">编辑<span>';
+	    	var sale =  '<span class="grid-command-span sale">上架<span>';
+	    	var unsale = '<span class="grid-command-span unsale">下架<span>';
+	    	return editText + sale + unsale;
 	    }}
 	],
 	store = new Store({
@@ -47,6 +53,17 @@ function initPage(){
         }
     });
     grid.render();
+    grid.on("cellclick", function(ev){
+    	var sender = $(ev.domTarget);
+    	if(sender.hasClass("edit")){
+    		editProduct(ev.record);
+    	}else if(sender.hasClass("sale")){
+    		saleProduct(ev.record);
+    	}else if(sender.hasClass("unsale")){
+    		unsaleProduct(ev.record);
+    	}
+    });
+    
 	//创建表单，表单中的日历，不需要单独初始化
     var form = new BUI.Form.HForm({
         srcNode : '#searchForm'
@@ -59,6 +76,12 @@ function initPage(){
         store.load(obj);
         return false;
     });
+}
+
+function resetLoad(){
+	var data = {"start": 0, "limit": 8};
+	store.set('url',requestIP + "/FuyaoManagementServer/product/list");
+	store.load(data);
 }
 
 function find(){ 
@@ -83,5 +106,59 @@ function findByPid(pid){
 			grid.setItems(data);
 			break;
 		}
+	}
+}
+
+function editProduct(product){
+	window.location.href = "product-edit.html?pId=" + product.pId;
+}
+
+function saleProduct(product){
+	if(product.status == "上架"){
+		alert("该商品已上架");
+	}else{
+		var data = {"id": product.id, "status": "SALE"};
+		$.ajax({
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			url: requestIP + "/FuyaoManagementServer/product/status",
+			async:true,
+			success: function(data){
+				alert(data.message);
+				var param = {"start": 0, "limit": 8};
+				store.set('url',requestIP + "/FuyaoManagementServer/product/list");
+				store.load(param);
+			},
+			error: function(){
+				
+			}
+		});
+	}
+}
+
+function unsaleProduct(product){
+	if(product.status == "下架"){
+		alert("该商品已下架");
+	}else{
+		var data = {"id": product.id, "status": "UNSALE"};
+		$.ajax({
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			url: requestIP + "/FuyaoManagementServer/product/status",
+			async:true,
+			success: function(data){
+				alert(data.message);
+				var param = {"start": 0, "limit": 8};
+				store.set('url',requestIP + "/FuyaoManagementServer/product/list");
+				store.load(param);
+			},
+			error: function(){
+				
+			}
+		});
 	}
 }
