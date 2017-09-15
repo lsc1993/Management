@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -23,6 +24,7 @@ import com.fuyao.model.product.Product;
 import com.fuyao.model.product.ProductImages;
 import com.fuyao.model.product.ProductStandard;
 import com.fuyao.util.FuyaoUtil;
+import com.fuyao.util.Log;
 
 @Transactional
 @Service("productService")
@@ -309,4 +311,79 @@ public class ProductService {
 		return result;
 	}
 	
+	public JSON getProductDetail(HashMap<String,String> data) {
+		String pId = data.get("pId");
+		Product p = productDao.getProduct(pId);
+		if (null == p) {
+			return (JSON) JSON.parse("{\"result\":\"fault\",\"message\":,\"没有该产品\"}");
+		}	
+
+		List<ProductImages> images = productDao.getProductImages(p.getId()); 
+		List<ProductStandard> standard = productDao.getProductStandard(p.getId());
+		StringBuilder builder = new StringBuilder();
+		builder.append("{").append("\"product\":").append(JSON.toJSONString(p))
+			.append(",").append("\"images\":").append(JSON.toJSONString(images))
+			.append(",").append("\"standard\":").append(JSON.toJSONString(standard))
+			.append("}");
+		Log.log("json:" + builder.toString());
+		return (JSON) JSON.parse(builder.toString());
+	}
+	
+	public HashMap<String,String> changeProduct(HttpServletRequest request) {
+		HashMap<String,String> result = new HashMap<String,String>();
+		long id = Long.parseLong(request.getParameter("id"));
+		String pId = request.getParameter("pId");
+		String type = request.getParameter("type");
+		String name = request.getParameter("name");
+		String describe = request.getParameter("describe");
+		int count = Integer.parseInt(request.getParameter("count"));
+		float price = Float.parseFloat(request.getParameter("price"));
+		Product p = new Product();
+		p.setId(id);
+		p.setPId(pId);
+		p.setType(type);
+		p.setName(name);
+		p.setDescribe(describe);
+		p.setCount(count);
+		p.setPrice(price);
+		p.setDate(new Date());
+		productDao.changeProduct(p);
+		Log.log(request.getParameter("sid"));
+		String[] sid = request.getParameter("sid").split(",");
+		String[] std = request.getParameter("standard").split(",");
+		Log.log(request.getParameter("standard"));
+		for (int i = 0;i < std.length;++i) {
+			ProductStandard ps = new ProductStandard();
+			if (i < sid.length) {
+				ps.setId(Long.parseLong(sid[i]));
+			}
+			ps.setpId(id);
+			ps.setStandard(std[i]);
+			ps.setPrice(Float.parseFloat(request.getParameter(std[i])));
+			productDao.changeStandard(ps);
+		}
+		result.put("message", "产品信息同步数据库成功");
+		result.put("result", "success");
+		return result;
+	}
+	
+	public HashMap<String,String> changeStatus(HashMap<String,String> data) {
+		long id = Long.parseLong(data.get("id"));
+		String status = data.get("status");
+		return productDao.changeStatus(id, ProductStatus.valueOf(status));
+	}
+	
+	public enum ProductStatus {
+		SALE("上架"),UNSALE("下架");
+		
+		private String status;
+		
+		private ProductStatus(String status) {
+			this.status = status;
+		}
+		
+		public String getStatus() {
+			return status;
+		}
+	}
 }

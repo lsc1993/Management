@@ -19,6 +19,7 @@ public class Product {
 	private float price;
 	private int count;
 	private String describe;
+	private String status;
 	private Date date;
 	
 	@Id
@@ -77,6 +78,14 @@ public class Product {
 	}
 	public void setDescribe(String describe) {
 		this.describe = describe;
+	}
+	
+	@Column(name="status",nullable=false,length=8)
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	@Column(name="loadtime",nullable=false)

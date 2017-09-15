@@ -18,18 +18,19 @@
 					<div class="control-group">
 						<label class="control-label"><s>*</s>商品编号</label>
 						<div class="controls">
-							<input type="text" name="product-id" data-rules="{required:true}" />
+							<!--<input type="text" name="product-id" data-rules="{required:true}" />-->
+							<label id="product-id" class="control-label"></label>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label"><s>*</s>商品名称</label>
 						<div class="controls">
-							<input type="text" name="product-name" data-rules="{required:true}" />
+							<input id="product-name" type="text" name="product-name" data-rules="{required:true}" />
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label"><s>*</s>商品规格</label>
-						<div class="controls product-standard-list">
+						<div class="product-standard-list">
 							<ul id="product-standard-containder">
 								<li id="add-standard">新建规格</li>
 							</ul>
@@ -38,19 +39,19 @@
 					<div class="control-group">
 						<label class="control-label"><s>*</s>商品价格</label>
 						<div class="controls">
-							<input type="text" name="product-price" data-rules="{required:true}" />
+							<input id="product-price" type="text" name="product-price" data-rules="{required:true}" />
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label"><s>*</s>商品数量</label>
 						<div class="controls">
-							<input type="text" name="product-count" data-rules="{required:true}" />
+							<input id="product-count" type="text" name="product-count" data-rules="{required:true}" />
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label"><s>*</s>商品描述</label>
 						<div class="controls control-row4">
-		                	<textarea class="input-large" type="text"></textarea>
+		                	<textarea id="product-decribe" class="input-large" type="text"></textarea>
 		            	</div>
 					</div>
 					<div class="control-group">
@@ -59,7 +60,7 @@
 					</div>
 					<hr>
 		            <div class="span5 offset3">
-		              <button class="button button-primary">提交</button>
+		              <button class="button button-primary" onclick="updateProduct()">提交</button>
 		            </div>
 				</div>
 			</div>
@@ -75,6 +76,7 @@
 		<script type="text/javascript" src="../assets/js/bui-min.js" ></script>
 		<script type="text/javascript" src="../assets/js/common/page-min.js" ></script>
 		<script type="text/javascript" src="../assets/js/config-min.js" ></script>
-		
+		<script type="text/javascript" src="../assets/js/constants.js" ></script>
+		<script type="text/javascript" src="js/product-edit.js" ></script>
 	</body>
 </html>

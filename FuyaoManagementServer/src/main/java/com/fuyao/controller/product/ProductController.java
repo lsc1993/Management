@@ -6,6 +6,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,5 +49,26 @@ public class ProductController {
 		}
 		Log.log(data.toString());
 		return productService.getProductList(data);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/detail",method=RequestMethod.POST)
+	private JSON getProductDetail(@RequestBody HashMap<String,String> data) {
+		Log.log("detail:" + data.toString());
+		JSON json = productService.getProductDetail(data);
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/change",method=RequestMethod.POST)
+	private HashMap<String,String> changeProduct(HttpServletRequest request) {
+		return productService.changeProduct(request);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/status",method=RequestMethod.POST)
+	private HashMap<String,String> changeProduct(@RequestBody HashMap<String,String> data) {
+		Log.log(data.toString());
+		return productService.changeStatus(data);
 	}
 }

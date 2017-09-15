@@ -1,0 +1,10 @@
+.grid-command-span {
+  color: #3366cc;
+  cursor: pointer;
+  display: inline-block;
+  padding-right: 5px;
+  margin-right: 10px;
+}
+.grid-command-span:hover {
+  color: #ff6600;
+}

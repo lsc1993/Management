@@ -1,8 +1,10 @@
 package com.fuyao.dao.product;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.NoResultException;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -15,6 +17,7 @@ import com.fuyao.model.product.Product;
 import com.fuyao.model.product.ProductImages;
 import com.fuyao.model.product.ProductStandard;
 import com.fuyao.page.CommonPage;
+import com.fuyao.service.product.ProductService.ProductStatus;
 import com.fuyao.util.Log;
 
 @Repository("productDao")
@@ -132,5 +135,85 @@ public class ProductDao implements IProductDao {
 		builder.append("\"results\"").append(":").append(this.getProductCount()).append("}");
 		Log.log(builder.toString());
 		return (JSON) JSON.parse(builder.toString());
+	}
+	
+	/*
+	 * 获取产品图片
+	 * @see com.fuyao.dao.product.IProductDao#getProductImages(long)
+	 * @param pId 产品id
+	 */
+	public List<ProductImages> getProductImages(long pId) {
+		// TODO Auto-generated method stub
+		String hql = "from ProductImages where pid=:pid";
+		Query<ProductImages> query = this.getCurrentSession().createQuery(hql, ProductImages.class);
+		query.setParameter("pid", pId);
+		return query.getResultList();
+	}
+
+	/*
+	 * 获取产品规格
+	 * @see com.fuyao.dao.product.IProductDao#getProductStandard(long)
+	 * @param pId 产品id
+	 */
+	public List<ProductStandard> getProductStandard(long pId) {
+		// TODO Auto-generated method stub
+		String hql = "from ProductStandard where pid=:pid";
+		Query<ProductStandard> query = this.getCurrentSession().createQuery(hql, ProductStandard.class);
+		query.setParameter("pid", pId);
+		return query.getResultList();
+	}
+
+	/*
+	 * 获取产品详情
+	 * @see com.fuyao.dao.product.IProductDao#getProduct(java.util.HashMap)
+	 * @param data 产品查询参数
+	 */
+	public Product getProduct(String pId) {
+		// TODO Auto-generated method stub
+		String hql = "from Product where pid=:pid";
+		Query<Product> query = this.getCurrentSession().createQuery(hql,Product.class);
+		query.setParameter("pid", pId);
+		Product p;
+		try {
+			p = query.getSingleResult();
+		} catch (NoResultException e) {
+			p = null;
+			e.printStackTrace();  
+		}
+		return p;
+	}
+
+	public HashMap<String, String> changeProduct(Product product) {
+		// TODO Auto-generated method stub
+		HashMap<String,String> result = new HashMap<String,String>();
+		this.getCurrentSession().update(product);
+		result.put("result", "success");
+		return result;
+	}
+
+	public HashMap<String, String> changeStandard(ProductStandard standard) {
+		// TODO Auto-generated method stub
+		HashMap<String,String> result = new HashMap<String,String>();
+		this.getCurrentSession().saveOrUpdate(standard);
+		result.put("result", "success");
+		return result;
+	}
+
+	public HashMap<String, String> changeStatus(long id, ProductStatus status) {
+		// TODO Auto-generated method stub
+		HashMap<String, String> result = new HashMap<String, String>();
+		String hql = "update Product set status=:status where id=:id";
+		Query<?> query = this.getCurrentSession().createQuery(hql);
+		query.setParameter("status", status.getStatus());
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+		if (updateCount == 1) {
+			result.put("result", "success");
+			result.put("message", "操作成功");
+		} else {
+			result.put("result", "fault");
+			result.put("message", "操作失败，请重试");
+		}
+		return result;
 	}
 }
