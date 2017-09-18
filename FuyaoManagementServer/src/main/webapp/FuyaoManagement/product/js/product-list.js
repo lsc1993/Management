@@ -20,11 +20,12 @@ function initPage(){
 	    {title:"商品价格",dataIndex:"price",width:80},
 	    {title:"商品数量",dataIndex:"count",width:80},
 	    {title:"商品类型",dataIndex:"type",width:100}, 
+	    {title:"商品状态",dataIndex:"type",width:100},
 	    {title:"上架时间",dataIndex:"date",width:150},
-	    {title:"操作",dataIndex:"",width:100,renderer:function(){	
-	    	var editText = '<span class="grid-command-span edit">编辑<span>';
-	    	var sale =  '<span class="grid-command-span sale">上架<span>';
-	    	var unsale = '<span class="grid-command-span unsale">下架<span>';
+	    {title:"操作",dataIndex:"",width:180,renderer:function(){	
+	    	var editText = '<p class="grid-command-span edit">编辑<p>';
+	    	var sale =  '<p class="grid-command-span sale">上架<p>';
+	    	var unsale = '<p class="grid-command-span unsale">下架<p>';
 	    	return editText + sale + unsale;
 	    }}
 	],

@@ -13,6 +13,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fuyao.model.product.Product;
 import com.fuyao.model.product.ProductImages;
 import com.fuyao.model.product.ProductStandard;
@@ -129,7 +130,7 @@ public class ProductDao implements IProductDao {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{");
 		if (query.getResultList().size() > 0) {
-			String json = JSON.toJSONString(query.getResultList());
+			String json = JSON.toJSONString(query.getResultList(), SerializerFeature.WriteDateUseDateFormat);
 			builder.append("\"rows\"").append(":").append(json).append(",");
 		}
 		builder.append("\"results\"").append(":").append(this.getProductCount()).append("}");
